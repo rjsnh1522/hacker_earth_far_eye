@@ -1,0 +1,24 @@
+
+<% if @kings.present? %>
+	<% @kings.each_slice(4).to_a.each do |king| %>
+	<div class="row">
+		<% king.each do |k| %>
+			<div class="col-md-3">
+		      <div class="thumbnail">
+		          <div class="caption">
+		            <p><b>Name King :</b> <%= k.try(:king_name) %></p>
+		            <p><b>Number of battles: </b><%= get_number_of_battles(k.king_name) %></p>
+		            <p><b>Battle Won:</b> <%= battle_won(k.king_name)%></p>
+		            <p><b>Battle Lost:</b> <%= battle_lost(k.king_name)%></p>
+		            <p><b>Rateing:</b> <%= king_current_rating(k.king_name)%></p>
+		            <p><b>Show Battles: </b>
+		            <%= link_to k.try(:king_name),battle_path(id:k.id) %></p>
+		          </div>
+		      </div>
+		    </div>
+		<% end %>
+	</div>
+	<% end %>		
+<% else %>
+	No data found
+<% end %>

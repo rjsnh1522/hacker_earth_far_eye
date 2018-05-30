@@ -1,0 +1,70 @@
+
+<style type="text/css">
+	.centered{
+		text-align: center;
+		font-size: 24px;
+	}
+</style>
+<div class="center-block centered">
+		<% if params[:id].present? %>
+		<p><b>King: </b> <%= params[:id] %></p>
+		<p><b>Current Rating: </b> <%= get_current_rating(params[:id]) %></p>
+	<% end %>
+</div>
+
+<% if @battle.present? %>
+		
+<table id="battleTable"  cellspacing="0" width="100%" class="table table-striped display">
+        <thead>
+            <tr>
+                <th>Battle name</th>
+                <th>Year</th>
+                <th>Defender</th>
+                <th>Attakers</th>
+                <th>Defenders</th>
+                <th>OutCome</th>
+                <th>Battle Type</th>
+                <th>Attacker Size </th>
+                <th>Defender Size</th>
+                <th>Attacker Commander</th>
+                <th>Defender Commander</th>
+                <th>Rate for </th>
+            </tr>
+        </thead>
+        <tbody>
+        	<% @battle.each do |bat| %>
+            <tr>
+                <td><%= bat.name %> </td>
+                <td><%= bat.year %></td>
+                <td><%= bat.defender_king %></td>
+                <td><%= bat.attacker_1%> <%= bat.attacker_2 %> <%= bat.attacker_3 %> <%= bat.attacker_4 %> </td>
+                <td><%= bat.defender_1%> <%= bat.defender_2 %> <%= bat.defender_3 %> <%= bat.defender_4 %> </td>
+                <td><%= bat.attacker_outcome %></td>
+                <td><%= bat.battle_type %></td>
+                <td><%= bat.attacker_size %></td>
+                <td><%= bat.defender_size %></td>
+                <td><%= bat.attacker_commander%></td>
+                <td><%= bat.defender_commander%></td>
+                <td>
+                    <% if bat.rating == 0 %>
+                    <%= link_to "Rate this war",rate_this_war_battle_path(bat.id) %>
+                    <% else %>
+                        Rated
+                    <% end %>
+                    </td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+ <script type="text/javascript">
+  $(document).ready(function() {
+    $('#battleTable').DataTable( {
+        "order": [[ 3, "desc" ]]
+		    } );
+	} );
+ </script>
+
+<% else %>
+	No Data Found
+
+<% end %>
