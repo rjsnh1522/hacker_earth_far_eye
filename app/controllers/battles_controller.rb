@@ -1,4 +1,8 @@
 class BattlesController < ApplicationController
+	#for code review
+	#elo rating system to provide rating for game of thrones kings
+
+
 
 	def index
 		@kings = King.all
